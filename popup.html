@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drink Water</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+    /* Main Heading: Larger font */
+    h1 {
+      color: #333;
+      margin-right: 15px;
+      font-size: 28px;
+    }
+    img {
+      width: 50px;
+      height: 70px;
+      position: relative;
+      top: -10px; /* Moves the image up 10 pixels */
+    }
+    /* Counter Paragraph: Smaller font */
+    #drank-counter {
+      font-size: 16px;  /* Lesser than h1 */
+      color: #555;
+      margin-top: 10px;
+    }
+    /* OK Button Default Styles */
+    #ok-btn {
+      margin: 1px auto;
+      padding: 10px 60px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* When hovering, change background to dark green */
+    #ok-btn:hover {
+      background-color: darkgreen;
+    }
+    /* When pressed, change background to black */
+    #ok-btn:active {
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Drink Water!</h1>
+    <img src="drink_Water.gif" alt="Drink Water Animation">
+  </div>
+  <!-- New Counter Message -->
+  <p id="drank-counter">Number of times drank: 1</p>
+  <button id="ok-btn">OK</button>
+  <script>
+    // Play reminder sound.
+    let audio = new Audio("Reminder.mp3");
+    audio.play().catch(err => console.log("Audio playback blocked"));
+
+    // Parse query parameters to get the "count"
+    const params = new URLSearchParams(window.location.search);
+    const count = params.get("count") || "0";
+    document.getElementById("drank-counter").innerText = "Number of times drank: " + count;
+    
+    document.getElementById("ok-btn").addEventListener("click", () => {
+      window.close();
+      require('electron').ipcRenderer.send('popup-closed');
+    });
+  </script>
+</body>
+</html>

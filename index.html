@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#28a745">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Reminder App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Title Bar (for your logo, etc.) -->
+  <div class="title-bar">
+    <!-- Title bar content (if any) -->
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Drink Water Reminder!</h1>
+    <label for="minutes">Enter Minutes:</label>
+    <input type="text" id="minutes" pattern="[0-9]*" inputmode="numeric" value="0" />
+    <br />
+    <label for="seconds">Enter Seconds:</label>
+    <input type="text" id="seconds" pattern="[0-9]*" inputmode="numeric" value="5" />
+    <br />
+    <button id="start" class="green-button">Start Reminder</button>
+    <button id="stop" class="red-button">Stop Reminder</button>
+  </div>
+
+  <!-- Audio Element for Reminder Sound -->
+  <audio id="reminder-sound" src="Reminder.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
