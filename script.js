@@ -1,4 +1,15 @@
-const { ipcRenderer } = require('electron');
+//const { ipcRenderer } = require('electron');
+let ipcRenderer = null;
+if (typeof require !== 'undefined') {
+  try {
+    ipcRenderer = require('electron').ipcRenderer;
+  } catch (e) {
+    console.warn('Running outside Electron.');
+  }
+}
+
+
+
 const fs = require('fs');
 const path = require('path');
 
